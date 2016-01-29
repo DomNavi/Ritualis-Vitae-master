@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class Rituals : MonoBehaviour {
 
+    public GameObject SequenceInfo;
 
     public int[] RuneSequenceA;
     public int[] RuneSequenceB;
@@ -32,21 +34,25 @@ public class Rituals : MonoBehaviour {
     public void StormIsComing()
     {
         disaster = "Storm";
+        Debug.Log("StormSigns");
     }
 
     public void MosquitosAreComing()
     {
         disaster = "Mosquitos";
+        Debug.Log("MosquitosSigns");
     }
 
     public void FloodIsComing()
     {
         disaster = "Flood";
+        Debug.Log("FloodSigns");
     }
 
     public void HeatIsComing()
     {
         disaster = "Heat";
+        Debug.Log("HeatSigns");
     }
 
 
@@ -64,6 +70,10 @@ public class Rituals : MonoBehaviour {
         {
             Debug.Log("The rune is a lie");
         }
+        if(RuneSequenceActive.Length == i)
+        {
+           // GetComponent<Disasters>().Ritual_done = true;
+        }
     }
 
     public void RunePressed2()
@@ -76,6 +86,10 @@ public class Rituals : MonoBehaviour {
         else
         {
             Debug.Log("The rune is a lie");
+        }
+        if (RuneSequenceActive.Length == i)
+        {
+            // GetComponent<Disasters>().Ritual_done = true;
         }
     }
 
@@ -90,6 +104,10 @@ public class Rituals : MonoBehaviour {
         {
             Debug.Log("The rune is a lie");
         }
+        if (RuneSequenceActive.Length == i)
+        {
+            // GetComponent<Disasters>().Ritual_done = true;
+        }
     }
 
     public void RunePressed4()
@@ -103,6 +121,10 @@ public class Rituals : MonoBehaviour {
         {
             Debug.Log("The rune is a lie");
         }
+        if (RuneSequenceActive.Length == i)
+        {
+            // GetComponent<Disasters>().Ritual_done = true;
+        }
     }
 
     public void RunePressedA()
@@ -110,6 +132,7 @@ public class Rituals : MonoBehaviour {
         if (disaster == "Storm")
         {
             RuneSequenceActive = RuneSequenceA;
+            SequenceTextChange();
         }
         else
         {
@@ -123,6 +146,7 @@ public class Rituals : MonoBehaviour {
         if (disaster == "Mosquitos")
         {
             RuneSequenceActive = RuneSequenceB;
+            SequenceTextChange();
         }
         else
         {
@@ -135,6 +159,7 @@ public class Rituals : MonoBehaviour {
         if (disaster == "Flood")
         {
             RuneSequenceActive = RuneSequenceC;
+            SequenceTextChange();
         }
         else
         {
@@ -147,10 +172,20 @@ public class Rituals : MonoBehaviour {
         if (disaster == "Heat")
         {
             RuneSequenceActive = RuneSequenceD;
+            SequenceTextChange();
         }
         else
         {
             Debug.Log("Wrong Button Fag");
+        }
+    }
+
+    public void SequenceTextChange()
+    {
+        SequenceInfo.GetComponent<Text>().text = " ";
+        for (int j = 0; j < RuneSequenceActive.Length; j++)
+        {
+            SequenceInfo.GetComponent<Text>().text += RuneSequenceActive[j] + " ";
         }
     }
 }
