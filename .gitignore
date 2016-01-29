@@ -26,9 +26,7 @@ ExportedObj/
 sysinfo.txt
 
 # Builds
-<<<<<<< HEAD
 *.apk
 *.unitypackage
-=======
 *.apk
->>>>>>> 70d08ffb6f7f62ea898f1ef8c27cd90dbe190933
+
