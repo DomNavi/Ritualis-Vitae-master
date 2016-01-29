@@ -23,7 +23,8 @@ public class Disasters : MonoBehaviour {
 		StartCoroutine (start_disaster ());
 	}
 	IEnumerator start_disaster(){
-		Current_disaster =Disasters_list[Random.Range(0,Disasters_list.Length)];
+		//Current_disaster =Disasters_list[Random.Range(0,Disasters_list.Length)];
+		Current_disaster =Disasters_list[Random.Range(0,2)];
 		switch (Current_disaster) {
 			case "storm":
 				Debug.Log ("Brace yourself, storm is coming!");
