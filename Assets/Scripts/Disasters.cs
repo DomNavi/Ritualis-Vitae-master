@@ -28,27 +28,28 @@ public class Disasters : MonoBehaviour {
 		switch (Current_disaster) {
 			case "storm":
 				Debug.Log ("Brace yourself, storm is coming!");
-				//GetComponent<Rituals>().StormIsComing ();
+				GetComponent<Rituals>().StormIsComing ();
 				break;
 			case "mosquitos":
 				Debug.Log ("Mosquitos are heading your way!");
-				//GetComponent<Rituals>().MosquitosAreComing ();
+				GetComponent<Rituals>().MosquitosAreComing ();
 				break;
 			case "flood":
 				Debug.Log ("Water is rising!");
-				//GetComponent<Rituals>().FloodIsComing ();
+				GetComponent<Rituals>().FloodIsComing ();
 				break;
 			case "heat":
 				Debug.Log ("Its getting hot!");
-				//GetComponent<Rituals>().HeatIsComing ();
+				GetComponent<Rituals>().HeatIsComing ();
 				break;
 		}
-		yield return new WaitForSeconds (4);
+		yield return new WaitForSeconds (6);
 		if (!Ritual_done) {
 			End_game ();
 		}
 		else {
 			Ritual_done = false;
+            GetComponent<Rituals>().ResetRunes();
 			StartCoroutine (start_disaster ());
 		}
 	}

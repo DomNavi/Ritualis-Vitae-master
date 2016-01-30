@@ -6,17 +6,20 @@ public class Rituals : MonoBehaviour {
 
     public GameObject SequenceInfo;
 
+    public int MaxSequenceLength = 6;
+
     public int[] RuneSequenceA;
     public int[] RuneSequenceB;
     public int[] RuneSequenceC;
     public int[] RuneSequenceD;
     public int[] RuneSequenceActive;
 
+    public GameObject[] Runes;
+	public GameObject Panel;
     private string disaster;
     private int i = 0;
     // Use this for initialization
     void Start() {
-        disaster = "Storm";
         for (int j = 0; j < 2; j++)
         {
             RuneSequenceA[j] = Random.Range(1, 5);
@@ -32,27 +35,51 @@ public class Rituals : MonoBehaviour {
     }
 
     public void StormIsComing()
-    {
+    {       
+        i = 0;
         disaster = "Storm";
         Debug.Log("StormSigns");
+        GetComponent<TextFade>().FadeTo(false);
+        GetComponent<TextFade>().DisInfo.GetComponent<Text>().text = disaster + " !";
+        Color temp = GetComponent<TextFade>().SequenceInfo.GetComponent<Text>().color;
+        temp.a = 0.0f;
+        GetComponent<TextFade>().SequenceInfo.GetComponent<Text>().color = temp;
     }
 
     public void MosquitosAreComing()
     {
+        i = 0;
         disaster = "Mosquitos";
         Debug.Log("MosquitosSigns");
+        GetComponent<TextFade>().FadeTo(false);
+        GetComponent<TextFade>().DisInfo.GetComponent<Text>().text = disaster + " !";
+        Color temp = GetComponent<TextFade>().SequenceInfo.GetComponent<Text>().color;
+        temp.a = 0.0f;
+        GetComponent<TextFade>().SequenceInfo.GetComponent<Text>().color = temp;
     }
 
     public void FloodIsComing()
     {
+        i = 0;
         disaster = "Flood";
         Debug.Log("FloodSigns");
+        GetComponent<TextFade>().FadeTo(false);
+        GetComponent<TextFade>().DisInfo.GetComponent<Text>().text = disaster + " !";
+        Color temp = GetComponent<TextFade>().SequenceInfo.GetComponent<Text>().color;
+        temp.a = 0.0f;
+        GetComponent<TextFade>().SequenceInfo.GetComponent<Text>().color = temp;
     }
 
     public void HeatIsComing()
     {
+        i = 0;
         disaster = "Heat";
         Debug.Log("HeatSigns");
+        GetComponent<TextFade>().FadeTo(false);
+        GetComponent<TextFade>().DisInfo.GetComponent<Text>().text = disaster + " !";
+        Color temp = GetComponent<TextFade>().SequenceInfo.GetComponent<Text>().color;
+        temp.a = 0.0f;
+        GetComponent<TextFade>().SequenceInfo.GetComponent<Text>().color = temp;
     }
 
 
@@ -63,8 +90,9 @@ public class Rituals : MonoBehaviour {
     {
         if(RuneSequenceActive.Length > i && RuneSequenceActive[i] == 1)
         {
+			Panel.GetComponent<RuneDrop>().Drop(1);
             i++;
-            Debug.Log("Correct");
+            Debug.Log("Correct");  
         }
         else
         {
@@ -72,7 +100,8 @@ public class Rituals : MonoBehaviour {
         }
         if(RuneSequenceActive.Length == i)
         {
-           // GetComponent<Disasters>().Ritual_done = true;
+            GetComponent<Disasters>().Ritual_done = true;
+            SequenceExpand();
         }
     }
 
@@ -80,6 +109,7 @@ public class Rituals : MonoBehaviour {
     {
         if (RuneSequenceActive.Length > i && RuneSequenceActive[i] == 2)
         {
+			Panel.GetComponent<RuneDrop>().Drop(2);
             i++;
             Debug.Log("Correct");
         }
@@ -89,7 +119,8 @@ public class Rituals : MonoBehaviour {
         }
         if (RuneSequenceActive.Length == i)
         {
-            // GetComponent<Disasters>().Ritual_done = true;
+            GetComponent<Disasters>().Ritual_done = true;
+            SequenceExpand();
         }
     }
 
@@ -97,6 +128,7 @@ public class Rituals : MonoBehaviour {
     {
         if (RuneSequenceActive.Length > i && RuneSequenceActive[i] == 3)
         {
+			Panel.GetComponent<RuneDrop>().Drop(3);
             i++;
             Debug.Log("Correct");
         }
@@ -106,7 +138,8 @@ public class Rituals : MonoBehaviour {
         }
         if (RuneSequenceActive.Length == i)
         {
-            // GetComponent<Disasters>().Ritual_done = true;
+            GetComponent<Disasters>().Ritual_done = true;
+            SequenceExpand();
         }
     }
 
@@ -114,6 +147,7 @@ public class Rituals : MonoBehaviour {
     {
         if (RuneSequenceActive.Length > i && RuneSequenceActive[i] == 4)
         {
+			Panel.GetComponent<RuneDrop>().Drop(4);
             i++;
             Debug.Log("Correct");
         }
@@ -123,7 +157,8 @@ public class Rituals : MonoBehaviour {
         }
         if (RuneSequenceActive.Length == i)
         {
-            // GetComponent<Disasters>().Ritual_done = true;
+            GetComponent<Disasters>().Ritual_done = true;
+            SequenceExpand();
         }
     }
 
@@ -182,10 +217,69 @@ public class Rituals : MonoBehaviour {
 
     public void SequenceTextChange()
     {
+        Color temp = GetComponent<TextFade>().SequenceInfo.GetComponent<Text>().color;
+        temp.a = 1.0f;
+        GetComponent<TextFade>().SequenceInfo.GetComponent<Text>().color = temp;
+        GetComponent<TextFade>().FadeTo(true);
         SequenceInfo.GetComponent<Text>().text = " ";
         for (int j = 0; j < RuneSequenceActive.Length; j++)
         {
             SequenceInfo.GetComponent<Text>().text += RuneSequenceActive[j] + " ";
+        }
+    }
+
+    public void SequenceExpand()
+    {
+        switch (disaster)
+        {
+            case "Storm":
+                if(RuneSequenceA.Length < MaxSequenceLength)
+                {
+                    RuneSequenceA = ExpandArray(RuneSequenceA);
+					
+                }                
+                break;
+            case "Mosquitos":
+                if (RuneSequenceB.Length < MaxSequenceLength)
+                {
+                    RuneSequenceB = ExpandArray(RuneSequenceB);
+					
+                }
+                break;
+            case "Flood":
+                if (RuneSequenceC.Length < MaxSequenceLength)
+                {
+                    RuneSequenceC = ExpandArray(RuneSequenceC);
+					
+                }
+                break;
+            case "Heat":
+                if (RuneSequenceD.Length < MaxSequenceLength)
+                {
+                    RuneSequenceD = ExpandArray(RuneSequenceD);
+					
+                }
+                break;
+        }
+		Panel.GetComponent<RuneDrop> ().runes_index = 0;
+    }
+
+    int[] ExpandArray(int[] A)
+    {
+        int[] Temp = new int[A.Length +1];
+        for(int j = 0; j < A.Length; j++)
+        {
+            Temp[j] = A[j];
+        }
+        Temp[A.Length] = Random.Range(1, 5);
+        return Temp;
+    }
+
+    public void ResetRunes()
+    {
+        for (int j = 0; j < Runes.Length; j++)
+        {
+            Runes[j].SetActive(false);
         }
     }
 }
