@@ -7,34 +7,39 @@ public class RuneDrop : MonoBehaviour {
 	public GameObject[] GuessedRunes;
 	public Sprite[] RunesIcons;
 	public int runes_index = 0;
-    Vector3 pos;
+    private int tempIndex;
     public float yVelocity = 80.0f;
+    private Vector3[] StartPos = new Vector3[6];
+    private Vector3[] tmp = new Vector3[6];
 
     void Start()
-    {
-
-		Debug.Log (GuessedRunes.Length);
-		pos = GuessedRunes[runes_index].GetComponent<RectTransform>().position;
-		Debug.Log (pos);
+    {      
+        for(int i = 0; i < 6; i++)
+        {
+            StartPos[i] = GuessedRunes[i].GetComponent<RectTransform>().position;
+            tmp[i] = GuessedRunes[i].GetComponent<RectTransform>().position;
+        }
         //Drop(1);
     }
 
     void Update()
     {
-        //pos.y = Mathf.SmoothDamp(pos.y, 34.35f, ref yVelocity, 0.2f);
-		//GuessedRunes[runes_index].GetComponent<RectTransform>().position = pos;
+        for (int i = 0; i < 6; i++)
+        {
+            if(tmp[i].y >= StartPos[i].y)
+            {
+                tmp[i].y = Mathf.SmoothDamp(tmp[i].y, StartPos[i].y, ref yVelocity, 2.2f * Time.deltaTime);
+                GuessedRunes[i].GetComponent<RectTransform>().position = new Vector3(tmp[i].x, tmp[i].y, tmp[i].z);
+            }           
+        }
+        
     }
 
 	public void Drop(int RuneIcon)
     {
-        pos.y = 70.0f;
-		Debug.Log (GuessedRunes.Length);
-		//Color tmp = GuessedRunes[runes_index].GetComponent<Image>().color
-
-		//GuessedRunes[runes_index].GetComponent<Image>().color = new Color(1,1,1,1);
-		GuessedRunes[runes_index].SetActive(true);
+        tmp[runes_index] = new Vector3(tmp[runes_index].x, 70.0f, tmp[runes_index].z);
+        GuessedRunes[runes_index].SetActive(true);
 		GuessedRunes [runes_index].GetComponent<Image> ().sprite = RunesIcons[RuneIcon-1];
 		runes_index++;
-
     }
 }

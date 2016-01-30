@@ -39,7 +39,6 @@ public class Disasters : MonoBehaviour {
 
 	IEnumerator wait_for_disaster(){
 		yield return new WaitForSeconds (4);
-		Debug.Log ("Disaster started");
 		StartCoroutine (start_disaster ());
 	}
 	IEnumerator start_disaster(){
@@ -69,11 +68,6 @@ public class Disasters : MonoBehaviour {
 		yield return new WaitForSeconds (6);
 		if (!Ritual_done) {
 			End_game ();
-		}
-		else {
-			//Ritual_done = false;
-            //GetComponent<Rituals>().ResetRunes();
-			//StartCoroutine (start_disaster ());
 		}
 	}
 

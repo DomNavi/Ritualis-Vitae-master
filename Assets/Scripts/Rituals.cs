@@ -44,6 +44,7 @@ public class Rituals : MonoBehaviour {
         Color temp = GetComponent<TextFade>().SequenceInfo.GetComponent<Text>().color;
         temp.a = 0.0f;
         GetComponent<TextFade>().SequenceInfo.GetComponent<Text>().color = temp;
+        ResetRunes();
     }
 
     public void MosquitosAreComing()
@@ -56,6 +57,7 @@ public class Rituals : MonoBehaviour {
         Color temp = GetComponent<TextFade>().SequenceInfo.GetComponent<Text>().color;
         temp.a = 0.0f;
         GetComponent<TextFade>().SequenceInfo.GetComponent<Text>().color = temp;
+        ResetRunes();
     }
 
     public void FloodIsComing()
@@ -68,6 +70,7 @@ public class Rituals : MonoBehaviour {
         Color temp = GetComponent<TextFade>().SequenceInfo.GetComponent<Text>().color;
         temp.a = 0.0f;
         GetComponent<TextFade>().SequenceInfo.GetComponent<Text>().color = temp;
+        ResetRunes();
     }
 
     public void HeatIsComing()
@@ -80,6 +83,7 @@ public class Rituals : MonoBehaviour {
         Color temp = GetComponent<TextFade>().SequenceInfo.GetComponent<Text>().color;
         temp.a = 0.0f;
         GetComponent<TextFade>().SequenceInfo.GetComponent<Text>().color = temp;
+        ResetRunes();
     }
 
 
