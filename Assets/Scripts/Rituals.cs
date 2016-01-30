@@ -83,11 +83,8 @@ public class Rituals : MonoBehaviour {
         Color temp = GetComponent<TextFade>().SequenceInfo.GetComponent<Text>().color;
         temp.a = 0.0f;
         GetComponent<TextFade>().SequenceInfo.GetComponent<Text>().color = temp;
-        ResetRunes();
+		ResetRunes ();
     }
-
-
-
 
 
     public void RunePressed1()
@@ -236,7 +233,8 @@ public class Rituals : MonoBehaviour {
     {
         GetComponent<Disasters>().StartCoroutine("start_disaster");
         GetComponent<Disasters>().Ritual_done = false;
-        switch (disaster)
+
+		switch (disaster)
         {
             case "Storm":
                 if(RuneSequenceA.Length < MaxSequenceLength)
