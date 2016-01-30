@@ -18,6 +18,10 @@ public class Rituals : MonoBehaviour {
 	public GameObject Panel;
     private string disaster;
     private int i = 0;
+
+    public Sprite[] RunesIcons = new Sprite[4];
+        
+    public GameObject SequenceInfoGrid;
     // Use this for initialization
     void Start() {
         for (int j = 0; j < 2; j++)
@@ -222,15 +226,24 @@ public class Rituals : MonoBehaviour {
         temp.a = 1.0f;
         GetComponent<TextFade>().SequenceInfo.GetComponent<Text>().color = temp;
         GetComponent<TextFade>().FadeTo(true);
-        SequenceInfo.GetComponent<Text>().text = " ";
         for (int j = 0; j < RuneSequenceActive.Length; j++)
         {
-            SequenceInfo.GetComponent<Text>().text += RuneSequenceActive[j] + " ";
+            SequenceInfoGrid.GetComponent<SequenceGrid>().SequenceElements[j].SetActive(true);
+            SequenceInfoGrid.GetComponent<SequenceGrid>().SequenceElements[j].GetComponent<Image>().sprite = RunesIcons[RuneSequenceActive[j]-1];
+        }
+        SequenceInfo.GetComponent<Text>().text = " ";
+        for (int k = 0; k < RuneSequenceActive.Length; k++)
+        {
+            SequenceInfo.GetComponent<Text>().text += RuneSequenceActive[k] + " ";
         }
     }
 
     public void SequenceExpand()
     {
+        for (int j = 0; j < RuneSequenceActive.Length; j++)
+        {
+            SequenceInfoGrid.GetComponent<SequenceGrid>().SequenceElements[j].SetActive(false);
+        }
         GetComponent<Disasters>().StartCoroutine("start_disaster");
         GetComponent<Disasters>().Ritual_done = false;
 
