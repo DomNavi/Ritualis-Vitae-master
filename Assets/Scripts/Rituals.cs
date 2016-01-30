@@ -6,6 +6,8 @@ public class Rituals : MonoBehaviour {
 
     public GameObject SequenceInfo;
 
+    public int MaxSequenceLength = 6;
+
     public int[] RuneSequenceA;
     public int[] RuneSequenceB;
     public int[] RuneSequenceC;
@@ -16,7 +18,6 @@ public class Rituals : MonoBehaviour {
     private int i = 0;
     // Use this for initialization
     void Start() {
-        disaster = "Storm";
         for (int j = 0; j < 2; j++)
         {
             RuneSequenceA[j] = Random.Range(1, 5);
@@ -33,24 +34,28 @@ public class Rituals : MonoBehaviour {
 
     public void StormIsComing()
     {
+        i = 0;
         disaster = "Storm";
         Debug.Log("StormSigns");
     }
 
     public void MosquitosAreComing()
     {
+        i = 0;
         disaster = "Mosquitos";
         Debug.Log("MosquitosSigns");
     }
 
     public void FloodIsComing()
     {
+        i = 0;
         disaster = "Flood";
         Debug.Log("FloodSigns");
     }
 
     public void HeatIsComing()
     {
+        i = 0;
         disaster = "Heat";
         Debug.Log("HeatSigns");
     }
@@ -72,7 +77,8 @@ public class Rituals : MonoBehaviour {
         }
         if(RuneSequenceActive.Length == i)
         {
-           // GetComponent<Disasters>().Ritual_done = true;
+            GetComponent<Disasters>().Ritual_done = true;
+            SequenceExpand();
         }
     }
 
@@ -89,7 +95,8 @@ public class Rituals : MonoBehaviour {
         }
         if (RuneSequenceActive.Length == i)
         {
-            // GetComponent<Disasters>().Ritual_done = true;
+            GetComponent<Disasters>().Ritual_done = true;
+            SequenceExpand();
         }
     }
 
@@ -106,7 +113,8 @@ public class Rituals : MonoBehaviour {
         }
         if (RuneSequenceActive.Length == i)
         {
-            // GetComponent<Disasters>().Ritual_done = true;
+            GetComponent<Disasters>().Ritual_done = true;
+            SequenceExpand();
         }
     }
 
@@ -123,7 +131,8 @@ public class Rituals : MonoBehaviour {
         }
         if (RuneSequenceActive.Length == i)
         {
-            // GetComponent<Disasters>().Ritual_done = true;
+            GetComponent<Disasters>().Ritual_done = true;
+            SequenceExpand();
         }
     }
 
@@ -187,5 +196,47 @@ public class Rituals : MonoBehaviour {
         {
             SequenceInfo.GetComponent<Text>().text += RuneSequenceActive[j] + " ";
         }
+    }
+
+    public void SequenceExpand()
+    {
+        switch (disaster)
+        {
+            case "Storm":
+                if(RuneSequenceA.Length < MaxSequenceLength)
+                {
+                    RuneSequenceA = ExpandArray(RuneSequenceA);
+                }                
+                break;
+            case "Mosquitos":
+                if (RuneSequenceB.Length < MaxSequenceLength)
+                {
+                    RuneSequenceB = ExpandArray(RuneSequenceB);
+                }
+                break;
+            case "Flood":
+                if (RuneSequenceC.Length < MaxSequenceLength)
+                {
+                    RuneSequenceC = ExpandArray(RuneSequenceC);
+                }
+                break;
+            case "Heat":
+                if (RuneSequenceD.Length < MaxSequenceLength)
+                {
+                    RuneSequenceD = ExpandArray(RuneSequenceD);
+                }
+                break;
+        }        
+    }
+
+    int[] ExpandArray(int[] A)
+    {
+        int[] Temp = new int[A.Length +1];
+        for(int j = 0; j < A.Length; j++)
+        {
+            Temp[j] = A[j];
+        }
+        Temp[A.Length] = Random.Range(1, 5);
+        return Temp;
     }
 }
