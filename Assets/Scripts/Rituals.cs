@@ -15,7 +15,7 @@ public class Rituals : MonoBehaviour {
     public int[] RuneSequenceActive;
 
     public GameObject[] Runes;
-
+	public GameObject Panel;
     private string disaster;
     private int i = 0;
     // Use this for initialization
@@ -90,7 +90,7 @@ public class Rituals : MonoBehaviour {
     {
         if(RuneSequenceActive.Length > i && RuneSequenceActive[i] == 1)
         {
-            Runes[i].GetComponent<RuneDrop>().Drop();
+			Panel.GetComponent<RuneDrop>().Drop(1);
             i++;
             Debug.Log("Correct");  
         }
@@ -109,7 +109,7 @@ public class Rituals : MonoBehaviour {
     {
         if (RuneSequenceActive.Length > i && RuneSequenceActive[i] == 2)
         {
-            Runes[i].GetComponent<RuneDrop>().Drop();
+			Panel.GetComponent<RuneDrop>().Drop(2);
             i++;
             Debug.Log("Correct");
         }
@@ -128,7 +128,7 @@ public class Rituals : MonoBehaviour {
     {
         if (RuneSequenceActive.Length > i && RuneSequenceActive[i] == 3)
         {
-            Runes[i].GetComponent<RuneDrop>().Drop();
+			Panel.GetComponent<RuneDrop>().Drop(3);
             i++;
             Debug.Log("Correct");
         }
@@ -147,7 +147,7 @@ public class Rituals : MonoBehaviour {
     {
         if (RuneSequenceActive.Length > i && RuneSequenceActive[i] == 4)
         {
-            Runes[i].GetComponent<RuneDrop>().Drop();
+			Panel.GetComponent<RuneDrop>().Drop(4);
             i++;
             Debug.Log("Correct");
         }
@@ -244,21 +244,25 @@ public class Rituals : MonoBehaviour {
                 if (RuneSequenceB.Length < MaxSequenceLength)
                 {
                     RuneSequenceB = ExpandArray(RuneSequenceB);
+					
                 }
                 break;
             case "Flood":
                 if (RuneSequenceC.Length < MaxSequenceLength)
                 {
                     RuneSequenceC = ExpandArray(RuneSequenceC);
+					
                 }
                 break;
             case "Heat":
                 if (RuneSequenceD.Length < MaxSequenceLength)
                 {
                     RuneSequenceD = ExpandArray(RuneSequenceD);
+					
                 }
                 break;
-        }        
+        }
+		Panel.GetComponent<RuneDrop> ().runes_index = 0;
     }
 
     int[] ExpandArray(int[] A)
