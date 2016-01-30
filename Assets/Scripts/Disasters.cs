@@ -49,6 +49,7 @@ public class Disasters : MonoBehaviour {
 		}
 		else {
 			Ritual_done = false;
+            GetComponent<Rituals>().ResetRunes();
 			StartCoroutine (start_disaster ());
 		}
 	}

@@ -14,6 +14,8 @@ public class Rituals : MonoBehaviour {
     public int[] RuneSequenceD;
     public int[] RuneSequenceActive;
 
+    public GameObject[] Runes;
+
     private string disaster;
     private int i = 0;
     // Use this for initialization
@@ -68,8 +70,9 @@ public class Rituals : MonoBehaviour {
     {
         if(RuneSequenceActive.Length > i && RuneSequenceActive[i] == 1)
         {
+            Runes[i].GetComponent<RuneDrop>().Drop();
             i++;
-            Debug.Log("Correct");
+            Debug.Log("Correct");  
         }
         else
         {
@@ -86,6 +89,7 @@ public class Rituals : MonoBehaviour {
     {
         if (RuneSequenceActive.Length > i && RuneSequenceActive[i] == 2)
         {
+            Runes[i].GetComponent<RuneDrop>().Drop();
             i++;
             Debug.Log("Correct");
         }
@@ -104,6 +108,7 @@ public class Rituals : MonoBehaviour {
     {
         if (RuneSequenceActive.Length > i && RuneSequenceActive[i] == 3)
         {
+            Runes[i].GetComponent<RuneDrop>().Drop();
             i++;
             Debug.Log("Correct");
         }
@@ -122,6 +127,7 @@ public class Rituals : MonoBehaviour {
     {
         if (RuneSequenceActive.Length > i && RuneSequenceActive[i] == 4)
         {
+            Runes[i].GetComponent<RuneDrop>().Drop();
             i++;
             Debug.Log("Correct");
         }
@@ -238,5 +244,13 @@ public class Rituals : MonoBehaviour {
         }
         Temp[A.Length] = Random.Range(1, 5);
         return Temp;
+    }
+
+    public void ResetRunes()
+    {
+        for (int j = 0; j < Runes.Length; j++)
+        {
+            Runes[j].SetActive(false);
+        }
     }
 }
