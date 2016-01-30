@@ -230,13 +230,15 @@ public class Rituals : MonoBehaviour {
 
     public void SequenceExpand()
     {
+        GetComponent<Disasters>().StartCoroutine("start_disaster");
+        GetComponent<Disasters>().Ritual_done = false;
         switch (disaster)
         {
             case "Storm":
                 if(RuneSequenceA.Length < MaxSequenceLength)
                 {
                     RuneSequenceA = ExpandArray(RuneSequenceA);
-                }                
+                }  
                 break;
             case "Mosquitos":
                 if (RuneSequenceB.Length < MaxSequenceLength)
