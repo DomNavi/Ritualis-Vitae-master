@@ -11,7 +11,6 @@ public class RuneDrop : MonoBehaviour {
     void Start()
     {
         pos = GetComponent<RectTransform>().position;
-        Debug.Log(pos.y);
         Drop();
     }
 

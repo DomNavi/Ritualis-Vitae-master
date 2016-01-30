@@ -35,10 +35,15 @@ public class Rituals : MonoBehaviour {
     }
 
     public void StormIsComing()
-    {
+    {       
         i = 0;
         disaster = "Storm";
         Debug.Log("StormSigns");
+        GetComponent<TextFade>().FadeTo(false);
+        GetComponent<TextFade>().DisInfo.GetComponent<Text>().text = disaster + " !";
+        Color temp = GetComponent<TextFade>().SequenceInfo.GetComponent<Text>().color;
+        temp.a = 0.0f;
+        GetComponent<TextFade>().SequenceInfo.GetComponent<Text>().color = temp;
     }
 
     public void MosquitosAreComing()
@@ -46,6 +51,11 @@ public class Rituals : MonoBehaviour {
         i = 0;
         disaster = "Mosquitos";
         Debug.Log("MosquitosSigns");
+        GetComponent<TextFade>().FadeTo(false);
+        GetComponent<TextFade>().DisInfo.GetComponent<Text>().text = disaster + " !";
+        Color temp = GetComponent<TextFade>().SequenceInfo.GetComponent<Text>().color;
+        temp.a = 0.0f;
+        GetComponent<TextFade>().SequenceInfo.GetComponent<Text>().color = temp;
     }
 
     public void FloodIsComing()
@@ -53,6 +63,11 @@ public class Rituals : MonoBehaviour {
         i = 0;
         disaster = "Flood";
         Debug.Log("FloodSigns");
+        GetComponent<TextFade>().FadeTo(false);
+        GetComponent<TextFade>().DisInfo.GetComponent<Text>().text = disaster + " !";
+        Color temp = GetComponent<TextFade>().SequenceInfo.GetComponent<Text>().color;
+        temp.a = 0.0f;
+        GetComponent<TextFade>().SequenceInfo.GetComponent<Text>().color = temp;
     }
 
     public void HeatIsComing()
@@ -60,6 +75,11 @@ public class Rituals : MonoBehaviour {
         i = 0;
         disaster = "Heat";
         Debug.Log("HeatSigns");
+        GetComponent<TextFade>().FadeTo(false);
+        GetComponent<TextFade>().DisInfo.GetComponent<Text>().text = disaster + " !";
+        Color temp = GetComponent<TextFade>().SequenceInfo.GetComponent<Text>().color;
+        temp.a = 0.0f;
+        GetComponent<TextFade>().SequenceInfo.GetComponent<Text>().color = temp;
     }
 
 
@@ -197,6 +217,10 @@ public class Rituals : MonoBehaviour {
 
     public void SequenceTextChange()
     {
+        Color temp = GetComponent<TextFade>().SequenceInfo.GetComponent<Text>().color;
+        temp.a = 1.0f;
+        GetComponent<TextFade>().SequenceInfo.GetComponent<Text>().color = temp;
+        GetComponent<TextFade>().FadeTo(true);
         SequenceInfo.GetComponent<Text>().text = " ";
         for (int j = 0; j < RuneSequenceActive.Length; j++)
         {
