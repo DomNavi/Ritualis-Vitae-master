@@ -8,12 +8,15 @@ public class Disasters : MonoBehaviour {
 
     public GameObject StormClouds;
     public GameObject Rain;
+    public GameObject Daylight;
     // Use this for initialization
 
     private bool storm = false;
     private bool mosquitos = false;
     private bool flood = false;
     private bool heat = false;
+
+    private float lightIntensity;
 
     void Start () {
 		
@@ -32,10 +35,16 @@ public class Disasters : MonoBehaviour {
             if (Temp.r <= 0.2f)
             {
                 Rain.GetComponent<ParticleSystem>().enableEmission = true;
-            }
+                lightIntensity = Mathf.Lerp(lightIntensity, 0.1f, 0.06f);                
+            }                       
             StormClouds.GetComponent<ParticleSystem>().startColor = Temp;
         }
-	}
+        else
+        {
+            lightIntensity = Mathf.Lerp(lightIntensity, 0.6f, 0.06f);
+        }
+        Daylight.GetComponent<Light>().intensity = lightIntensity;
+    }
 
 	IEnumerator wait_for_disaster(){
 		yield return new WaitForSeconds (4);
@@ -73,7 +82,8 @@ public class Disasters : MonoBehaviour {
 
     void StormStart()
     {
-        StormClouds.GetComponent<ParticleSystem>().enableEmission = true;      
+        StormClouds.GetComponent<ParticleSystem>().enableEmission = true;
+        lightIntensity = Daylight.GetComponent<Light>().intensity;      
         storm = true;
     }
 
