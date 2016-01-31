@@ -4,17 +4,20 @@ using System.Collections;
 public class Disasters : MonoBehaviour {
 	public string[] Disasters_list = {"storm","mosquitos","flood","heat"};
 	public string Current_disaster;
-	public bool Ritual_done = false;
+	public int Ritual_done = 0;
 
     public GameObject StormClouds;
     public GameObject Rain;
     public GameObject Daylight;
+
+    public GameObject MosquitosCloud;
     // Use this for initialization
 
     private bool storm = false;
     private bool mosquitos = false;
     private bool flood = false;
     private bool heat = false;
+    private bool DisasterInProgress = false;
 
     private float lightIntensity;
 
@@ -44,6 +47,12 @@ public class Disasters : MonoBehaviour {
             lightIntensity = Mathf.Lerp(lightIntensity, 0.6f, 0.06f);
         }
         Daylight.GetComponent<Light>().intensity = lightIntensity;
+        if(mosquitos)
+        {
+            Vector3 tempPos = MosquitosCloud.GetComponent<Transform>().localPosition;
+            tempPos.x = Mathf.Lerp(tempPos.x, 7.0f, 1.0f * Time.deltaTime);
+            MosquitosCloud.GetComponent<Transform>().localPosition = tempPos;
+        }
     }
 
 	IEnumerator wait_for_disaster(){
@@ -51,34 +60,42 @@ public class Disasters : MonoBehaviour {
 		StartCoroutine (start_disaster ());
 	}
 	IEnumerator start_disaster(){
+        DisasterInProgress = true;
         StormEnd();
+        MosquitosEnd();
+        //FloodEnd();
+        //HeatEnd();
         yield return new WaitForSeconds(1.5f);
-		//Current_disaster =Disasters_list[Random.Range(0,Disasters_list.Length)];
-		Current_disaster =Disasters_list[Random.Range(0,2)];
+        Current_disaster = Disasters_list[Random.Range(0,Disasters_list.Length)];
+        //Current_disaster = Disasters_list[Random.Range(0,2)];
 		switch (Current_disaster) {
 			case "storm":
-				Debug.Log ("Brace yourself, storm is coming!");
+				//Debug.Log ("Brace yourself, storm is coming!");
                 StormStart();
 				GetComponent<Rituals>().StormIsComing ();
 				break;
 			case "mosquitos":
-				Debug.Log ("Mosquitos are heading your way!");
+				//Debug.Log ("Mosquitos are heading your way!");
+                MosquitosStart();
 				GetComponent<Rituals>().MosquitosAreComing ();
 				break;
 			case "flood":
-				Debug.Log ("Water is rising!");
-				GetComponent<Rituals>().FloodIsComing ();
+				//Debug.Log ("Water is rising!");
+                //FloodStart();
+                GetComponent<Rituals>().FloodIsComing ();
 				break;
 			case "heat":
-				Debug.Log ("Its getting hot!");
-				GetComponent<Rituals>().HeatIsComing ();
+				//Debug.Log ("Its getting hot!");
+                //HeatStart();
+                GetComponent<Rituals>().HeatIsComing ();
 				break;
 		}
 		yield return new WaitForSeconds (6);
-		if (!Ritual_done) {
+		if (Ritual_done == 0) {
 			End_game ();
 		}
-	}
+        Ritual_done--;
+    }
 
     void StormStart()
     {
@@ -95,8 +112,24 @@ public class Disasters : MonoBehaviour {
         storm = false;
     }
 
+    void MosquitosStart()
+    {
+        MosquitosCloud.GetComponent<ParticleSystem>().enableEmission = true;
+        mosquitos = true;
+        Vector3 tempPos = MosquitosCloud.GetComponent<Transform>().localPosition;
+        tempPos.x = -9.11f;
+        MosquitosCloud.GetComponent<Transform>().localPosition = tempPos;
+    }
 
-	void End_game(){
+    public void MosquitosEnd()
+    {
+        MosquitosCloud.GetComponent<ParticleSystem>().enableEmission = false;
+        mosquitos = false;
+    }
+
+	void End_game()
+    {
 		Debug.Log ("Game ended");
-	}
+        Time.timeScale = 0.0f;
+    }
 }
