@@ -66,7 +66,7 @@ public class Rituals : MonoBehaviour {
         disaster = "Storm";
         Debug.Log("StormSigns");
         GetComponent<TextFade>().FadeTo(false);
-        GetComponent<TextFade>().DisInfo.GetComponent<Text>().text = disaster + " !";
+        //GetComponent<TextFade>().DisInfo.GetComponent<Text>().text = disaster + " !";
         ResetRunes();
         for(int j = 0; j < 4; j++)
         {
@@ -83,7 +83,7 @@ public class Rituals : MonoBehaviour {
         disaster = "Mosquitos";
         Debug.Log("MosquitosSigns");
         GetComponent<TextFade>().FadeTo(false);
-        GetComponent<TextFade>().DisInfo.GetComponent<Text>().text = disaster + " !";
+        //GetComponent<TextFade>().DisInfo.GetComponent<Text>().text = disaster + " !";
         ResetRunes();
         for (int j = 0; j < 4; j++)
         {
@@ -100,7 +100,7 @@ public class Rituals : MonoBehaviour {
         disaster = "Earthquake";
         Debug.Log("EarthquakeSigns");
         GetComponent<TextFade>().FadeTo(false);
-        GetComponent<TextFade>().DisInfo.GetComponent<Text>().text = disaster + " !";
+       // GetComponent<TextFade>().DisInfo.GetComponent<Text>().text = disaster + " !";
         ResetRunes();
         for (int j = 0; j < 4; j++)
         {
@@ -117,7 +117,7 @@ public class Rituals : MonoBehaviour {
         disaster = "Heat";
         Debug.Log("HeatSigns");
         GetComponent<TextFade>().FadeTo(false);
-        GetComponent<TextFade>().DisInfo.GetComponent<Text>().text = disaster + " !";      
+       // GetComponent<TextFade>().DisInfo.GetComponent<Text>().text = disaster + " !";      
 		ResetRunes ();
         for (int j = 0; j < 4; j++)
         {

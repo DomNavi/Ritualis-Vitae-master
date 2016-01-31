@@ -5,7 +5,7 @@ using System.Collections;
 public class TextFade : MonoBehaviour {
 
     public GameObject SequenceInfo;
-    public GameObject DisInfo;
+    //public GameObject DisInfo;
     private bool fade = true;
     private Color Temp;
 
@@ -19,12 +19,12 @@ public class TextFade : MonoBehaviour {
         if (fade)
         {
             Temp.a = Mathf.Lerp(Temp.a, 0.0f, 8.5f * Time.deltaTime);
-            DisInfo.GetComponent<Text>().color = Temp;
+            //DisInfo.GetComponent<Text>().color = Temp;
         }
         else
         {
             Temp.a = Mathf.Lerp(Temp.a, 1.0f, 8.5f * Time.deltaTime);
-            DisInfo.GetComponent<Text>().color = Temp;            
+            //DisInfo.GetComponent<Text>().color = Temp;            
         }
 
     }
