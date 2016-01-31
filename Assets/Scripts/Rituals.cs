@@ -107,7 +107,7 @@ public class Rituals : MonoBehaviour {
             {
                 Panel.GetComponent<RuneDrop>().Drop(1);
                 i++;
-                RitualHit.GetComponent<ParticleSystem>().enableEmission = true;
+                RitualHit.GetComponent<ParticleSystem>().Emit(30);
                 Debug.Log("Correct");
             }
             else
@@ -134,6 +134,7 @@ public class Rituals : MonoBehaviour {
             {
                 Panel.GetComponent<RuneDrop>().Drop(2);
                 i++;
+                RitualHit.GetComponent<ParticleSystem>().Emit(30);
                 Debug.Log("Correct");
             }
             else
@@ -160,6 +161,7 @@ public class Rituals : MonoBehaviour {
             {
                 Panel.GetComponent<RuneDrop>().Drop(3);
                 i++;
+                RitualHit.GetComponent<ParticleSystem>().Emit(30);
                 Debug.Log("Correct");
             }
             else
@@ -185,6 +187,7 @@ public class Rituals : MonoBehaviour {
             {
                 Panel.GetComponent<RuneDrop>().Drop(4);
                 i++;
+                RitualHit.GetComponent<ParticleSystem>().Emit(30);
                 Debug.Log("Correct");
             }
             else
