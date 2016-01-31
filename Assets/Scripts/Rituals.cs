@@ -7,17 +7,25 @@ public class Rituals : MonoBehaviour {
     public GameObject SequenceInfo;
 
     public int MaxSequenceLength = 6;
-
+    public GameObject RitualHit;
     public int[] RuneSequenceA;
     public int[] RuneSequenceB;
     public int[] RuneSequenceC;
     public int[] RuneSequenceD;
     public int[] RuneSequenceActive;
+    public GameObject TimeText;
 
     public GameObject[] Runes;
 	public GameObject Panel;
     private string disaster;
     private int i = 0;
+    private float timeDiff = 6;
+
+    public Sprite[] RunesIcons = new Sprite[4];
+
+    public bool RitualInProgress = false;
+        
+    public GameObject SequenceInfoGrid;
     // Use this for initialization
     void Start() {
         for (int j = 0; j < 2; j++)
@@ -31,12 +39,13 @@ public class Rituals : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-
+        TimeText.GetComponent<Text>().text = (timeDiff - Time.time).ToString();
     }
 
     public void StormIsComing()
-    {       
-        i = 0;
+    {
+        timeDiff = Time.time + 6;
+        TimeText.SetActive(true);
         disaster = "Storm";
         Debug.Log("StormSigns");
         GetComponent<TextFade>().FadeTo(false);
@@ -44,12 +53,13 @@ public class Rituals : MonoBehaviour {
         Color temp = GetComponent<TextFade>().SequenceInfo.GetComponent<Text>().color;
         temp.a = 0.0f;
         GetComponent<TextFade>().SequenceInfo.GetComponent<Text>().color = temp;
-		ResetRunes ();
+        ResetRunes();
     }
 
     public void MosquitosAreComing()
     {
-        i = 0;
+        timeDiff = Time.time + 6;
+        TimeText.SetActive(true);
         disaster = "Mosquitos";
         Debug.Log("MosquitosSigns");
         GetComponent<TextFade>().FadeTo(false);
@@ -57,12 +67,13 @@ public class Rituals : MonoBehaviour {
         Color temp = GetComponent<TextFade>().SequenceInfo.GetComponent<Text>().color;
         temp.a = 0.0f;
         GetComponent<TextFade>().SequenceInfo.GetComponent<Text>().color = temp;
-		ResetRunes ();
+        ResetRunes();
     }
 
     public void FloodIsComing()
     {
-        i = 0;
+        timeDiff = Time.time + 6;
+        TimeText.SetActive(true);
         disaster = "Flood";
         Debug.Log("FloodSigns");
         GetComponent<TextFade>().FadeTo(false);
@@ -70,12 +81,13 @@ public class Rituals : MonoBehaviour {
         Color temp = GetComponent<TextFade>().SequenceInfo.GetComponent<Text>().color;
         temp.a = 0.0f;
         GetComponent<TextFade>().SequenceInfo.GetComponent<Text>().color = temp;
-		ResetRunes ();
+        ResetRunes();
     }
 
     public void HeatIsComing()
     {
-        i = 0;
+        timeDiff = Time.time + 6;
+        TimeText.SetActive(true);
         disaster = "Heat";
         Debug.Log("HeatSigns");
         GetComponent<TextFade>().FadeTo(false);
@@ -87,91 +99,121 @@ public class Rituals : MonoBehaviour {
     }
 
 
-
-
-
     public void RunePressed1()
     {
-        if(RuneSequenceActive.Length > i && RuneSequenceActive[i] == 1)
+        if (RitualInProgress)
         {
-			Panel.GetComponent<RuneDrop>().Drop(1);
-            i++;
-            Debug.Log("Correct");  
+            if (RuneSequenceActive.Length > i && RuneSequenceActive[i] == 1)
+            {
+                Panel.GetComponent<RuneDrop>().Drop(1);
+                i++;
+                RitualHit.GetComponent<ParticleSystem>().Emit(30);
+                Debug.Log("Correct");
+            }
+            else
+            {
+                Debug.Log("The rune is a lie");
+            }
+            if (RuneSequenceActive.Length == i)
+            {
+                TimeText.SetActive(false);
+                RitualInProgress = false;
+                i = 0;
+                GetComponent<Disasters>().Ritual_done++;
+                SequenceExpand();
+            }
         }
-        else
-        {
-            Debug.Log("The rune is a lie");
-        }
-        if(RuneSequenceActive.Length == i)
-        {
-            GetComponent<Disasters>().Ritual_done = true;
-            SequenceExpand();
-        }
+        
     }
 
     public void RunePressed2()
     {
-        if (RuneSequenceActive.Length > i && RuneSequenceActive[i] == 2)
+        if (RitualInProgress)
         {
-			Panel.GetComponent<RuneDrop>().Drop(2);
-            i++;
-            Debug.Log("Correct");
+            if (RuneSequenceActive.Length > i && RuneSequenceActive[i] == 2)
+            {
+                Panel.GetComponent<RuneDrop>().Drop(2);
+                i++;
+                RitualHit.GetComponent<ParticleSystem>().Emit(30);
+                Debug.Log("Correct");
+            }
+            else
+            {
+                Debug.Log("The rune is a lie");
+            }
+            if (RuneSequenceActive.Length == i)
+            {
+                TimeText.SetActive(false);
+                RitualInProgress = false;
+                i = 0;
+                GetComponent<Disasters>().Ritual_done++;
+                SequenceExpand();
+            }
         }
-        else
-        {
-            Debug.Log("The rune is a lie");
-        }
-        if (RuneSequenceActive.Length == i)
-        {
-            GetComponent<Disasters>().Ritual_done = true;
-            SequenceExpand();
-        }
+       
     }
 
     public void RunePressed3()
     {
-        if (RuneSequenceActive.Length > i && RuneSequenceActive[i] == 3)
+        if (RitualInProgress)
         {
-			Panel.GetComponent<RuneDrop>().Drop(3);
-            i++;
-            Debug.Log("Correct");
+            if (RuneSequenceActive.Length > i && RuneSequenceActive[i] == 3)
+            {
+                Panel.GetComponent<RuneDrop>().Drop(3);
+                i++;
+                RitualHit.GetComponent<ParticleSystem>().Emit(30);
+                Debug.Log("Correct");
+            }
+            else
+            {
+                Debug.Log("The rune is a lie");
+            }
+            if (RuneSequenceActive.Length == i)
+            {
+                TimeText.SetActive(false);
+                RitualInProgress = false;
+                i = 0;
+                GetComponent<Disasters>().Ritual_done++;
+                SequenceExpand();
+            }
         }
-        else
-        {
-            Debug.Log("The rune is a lie");
-        }
-        if (RuneSequenceActive.Length == i)
-        {
-            GetComponent<Disasters>().Ritual_done = true;
-            SequenceExpand();
-        }
+        
     }
 
     public void RunePressed4()
     {
-        if (RuneSequenceActive.Length > i && RuneSequenceActive[i] == 4)
-        {
-			Panel.GetComponent<RuneDrop>().Drop(4);
-            i++;
-            Debug.Log("Correct");
+       if(RitualInProgress) {
+            if (RuneSequenceActive.Length > i && RuneSequenceActive[i] == 4)
+            {
+                Panel.GetComponent<RuneDrop>().Drop(4);
+                i++;
+                RitualHit.GetComponent<ParticleSystem>().Emit(30);
+                Debug.Log("Correct");
+            }
+            else
+            {
+                Debug.Log("The rune is a lie");
+            }
+            if (RuneSequenceActive.Length == i)
+            {
+                TimeText.SetActive(false);
+                RitualInProgress = false;
+                i = 0;
+                GetComponent<Disasters>().Ritual_done++;
+                SequenceExpand();
+            }
         }
-        else
-        {
-            Debug.Log("The rune is a lie");
-        }
-        if (RuneSequenceActive.Length == i)
-        {
-            GetComponent<Disasters>().Ritual_done = true;
-            SequenceExpand();
-        }
+       
     }
 
     public void RunePressedA()
     {
-        if (disaster == "Storm")
+        if (disaster == "Storm" && !RitualInProgress)
         {
+            //i = 0;
+            RitualInProgress = true;
             RuneSequenceActive = RuneSequenceA;
-            SequenceTextChange();
+            SequenceTextChange();            
         }
         else
         {
@@ -182,8 +224,10 @@ public class Rituals : MonoBehaviour {
 
     public void RunePressedB()
     {
-        if (disaster == "Mosquitos")
+        if (disaster == "Mosquitos" && !RitualInProgress)
         {
+            //i = 0;
+            RitualInProgress = true;
             RuneSequenceActive = RuneSequenceB;
             SequenceTextChange();
         }
@@ -195,8 +239,10 @@ public class Rituals : MonoBehaviour {
 
     public void RunePressedC()
     {
-        if (disaster == "Flood")
+        if (disaster == "Flood" && !RitualInProgress)
         {
+            //i = 0;
+            RitualInProgress = true;
             RuneSequenceActive = RuneSequenceC;
             SequenceTextChange();
         }
@@ -208,8 +254,10 @@ public class Rituals : MonoBehaviour {
 
     public void RunePressedD()
     {
-        if (disaster == "Heat")
+        if (disaster == "Heat" && !RitualInProgress)
         {
+            //i = 0;
+            RitualInProgress = true;
             RuneSequenceActive = RuneSequenceD;
             SequenceTextChange();
         }
@@ -224,18 +272,28 @@ public class Rituals : MonoBehaviour {
         Color temp = GetComponent<TextFade>().SequenceInfo.GetComponent<Text>().color;
         temp.a = 1.0f;
         GetComponent<TextFade>().SequenceInfo.GetComponent<Text>().color = temp;
-        GetComponent<TextFade>().FadeTo(true);
-        SequenceInfo.GetComponent<Text>().text = " ";
+        //GetComponent<TextFade>().FadeTo(true);
         for (int j = 0; j < RuneSequenceActive.Length; j++)
         {
-            SequenceInfo.GetComponent<Text>().text += RuneSequenceActive[j] + " ";
+            SequenceInfoGrid.GetComponent<SequenceGrid>().SequenceElements[j].SetActive(true);
+            SequenceInfoGrid.GetComponent<SequenceGrid>().SequenceElements[j].GetComponent<Image>().sprite = RunesIcons[RuneSequenceActive[j]-1];
         }
+        //SequenceInfo.GetComponent<Text>().text = " ";
+        //for (int k = 0; k < RuneSequenceActive.Length; k++)
+        //{
+        //    SequenceInfo.GetComponent<Text>().text += RuneSequenceActive[k] + " ";
+        //}
     }
 
     public void SequenceExpand()
     {
+        timeDiff = Time.time + 6;
+        for (int j = 0; j < RuneSequenceActive.Length; j++)
+        {
+            SequenceInfoGrid.GetComponent<SequenceGrid>().SequenceElements[j].SetActive(false);
+        }
+
         GetComponent<Disasters>().StartCoroutine("start_disaster");
-        GetComponent<Disasters>().Ritual_done = false;
 
 		switch (disaster)
         {
