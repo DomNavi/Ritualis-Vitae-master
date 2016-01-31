@@ -15,11 +15,18 @@ public class Rituals : MonoBehaviour {
     public int[] RuneSequenceActive;
     public GameObject TimeText;
 
+    public GameObject[] Buttons = new GameObject[4];
+
     public GameObject[] Runes;
 	public GameObject Panel;
     private string disaster;
     private int i = 0;
-    private float timeDiff = 6;
+    private float timeDiff = 5;
+
+    public int Karma = 0;
+    private float karmaTimeDiff = 0;
+    public int KarmaModifier = 1;
+    public GameObject KarmaText;
 
     public Sprite[] RunesIcons = new Sprite[4];
 
@@ -28,6 +35,7 @@ public class Rituals : MonoBehaviour {
     public GameObject SequenceInfoGrid;
     // Use this for initialization
     void Start() {
+        KarmaModifier = 1;
         for (int j = 0; j < 2; j++)
         {
             RuneSequenceA[j] = Random.Range(1, 5);
@@ -40,57 +48,88 @@ public class Rituals : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         TimeText.GetComponent<Text>().text = Mathf.CeilToInt(timeDiff - Time.time).ToString();
-
+        if(Time.time >= karmaTimeDiff + 1.0f)
+        {
+            Debug.Log(Karma);
+            karmaTimeDiff++;
+            Karma += KarmaModifier;
+            KarmaText.GetComponent<Text>().text = "Karma " + Karma.ToString();
+                
+        }
     }
 
     public void StormIsComing()
     {
-        timeDiff = Time.time + 6;
+        timeDiff = Time.time + 5;
         TimeText.SetActive(true);
         disaster = "Storm";
         Debug.Log("StormSigns");
         GetComponent<TextFade>().FadeTo(false);
         GetComponent<TextFade>().DisInfo.GetComponent<Text>().text = disaster + " !";
         ResetRunes();
+        for(int j = 0; j < 4; j++)
+        {
+            Color tmp = Buttons[j].GetComponent<Image>().color;
+            tmp.a = 0.4f;
+            Buttons[j].GetComponent<Image>().color = tmp;
+        }
     }
 
     public void MosquitosAreComing()
     {
-        timeDiff = Time.time + 6;
+        timeDiff = Time.time + 5;
         TimeText.SetActive(true);
         disaster = "Mosquitos";
         Debug.Log("MosquitosSigns");
         GetComponent<TextFade>().FadeTo(false);
         GetComponent<TextFade>().DisInfo.GetComponent<Text>().text = disaster + " !";
         ResetRunes();
+        for (int j = 0; j < 4; j++)
+        {
+            Color tmp = Buttons[j].GetComponent<Image>().color;
+            tmp.a = 0.4f;
+            Buttons[j].GetComponent<Image>().color = tmp;
+        }
     }
 
-    public void FloodIsComing()
+    public void EarthquakeIsComing()
     {
-        timeDiff = Time.time + 6;
+        timeDiff = Time.time + 5;
         TimeText.SetActive(true);
-        disaster = "Flood";
-        Debug.Log("FloodSigns");
+        disaster = "Earthquake";
+        Debug.Log("EarthquakeSigns");
         GetComponent<TextFade>().FadeTo(false);
         GetComponent<TextFade>().DisInfo.GetComponent<Text>().text = disaster + " !";
         ResetRunes();
+        for (int j = 0; j < 4; j++)
+        {
+            Color tmp = Buttons[j].GetComponent<Image>().color;
+            tmp.a = 0.4f;
+            Buttons[j].GetComponent<Image>().color = tmp;
+        }
     }
 
     public void HeatIsComing()
     {
-        timeDiff = Time.time + 6;
+        timeDiff = Time.time + 5;
         TimeText.SetActive(true);
         disaster = "Heat";
         Debug.Log("HeatSigns");
         GetComponent<TextFade>().FadeTo(false);
         GetComponent<TextFade>().DisInfo.GetComponent<Text>().text = disaster + " !";      
 		ResetRunes ();
+        for (int j = 0; j < 4; j++)
+        {
+            Color tmp = Buttons[j].GetComponent<Image>().color;
+            tmp.a = 0.4f;
+            Buttons[j].GetComponent<Image>().color = tmp;
+        }
     }
 
 
     public void RunePressed1()
     {
-        if (RitualInProgress)
+        if (RitualInProgress && Time.timeScale != 0)
         {
             if (RuneSequenceActive.Length > i && RuneSequenceActive[i] == 1)
             {
@@ -105,6 +144,13 @@ public class Rituals : MonoBehaviour {
             }
             if (RuneSequenceActive.Length == i)
             {
+                for (int j = 0; j < 4; j++)
+                {
+                    Color tmp = Buttons[j].GetComponent<Image>().color;
+                    tmp.a = 0.4f;
+                    Buttons[j].GetComponent<Image>().color = tmp;
+                }
+
                 TimeText.SetActive(false);
                 RitualInProgress = false;
                 i = 0;
@@ -117,7 +163,7 @@ public class Rituals : MonoBehaviour {
 
     public void RunePressed2()
     {
-        if (RitualInProgress)
+        if (RitualInProgress && Time.timeScale != 0)
         {
             if (RuneSequenceActive.Length > i && RuneSequenceActive[i] == 2)
             {
@@ -132,6 +178,13 @@ public class Rituals : MonoBehaviour {
             }
             if (RuneSequenceActive.Length == i)
             {
+                for (int j = 0; j < 4; j++)
+                {
+                    Color tmp = Buttons[j].GetComponent<Image>().color;
+                    tmp.a = 0.4f;
+                    Buttons[j].GetComponent<Image>().color = tmp;
+                }
+
                 TimeText.SetActive(false);
                 RitualInProgress = false;
                 i = 0;
@@ -144,7 +197,7 @@ public class Rituals : MonoBehaviour {
 
     public void RunePressed3()
     {
-        if (RitualInProgress)
+        if (RitualInProgress && Time.timeScale != 0)
         {
             if (RuneSequenceActive.Length > i && RuneSequenceActive[i] == 3)
             {
@@ -159,6 +212,13 @@ public class Rituals : MonoBehaviour {
             }
             if (RuneSequenceActive.Length == i)
             {
+                for (int j = 0; j < 4; j++)
+                {
+                    Color tmp = Buttons[j].GetComponent<Image>().color;
+                    tmp.a = 0.4f;
+                    Buttons[j].GetComponent<Image>().color = tmp;
+                }
+
                 TimeText.SetActive(false);
                 RitualInProgress = false;
                 i = 0;
@@ -171,7 +231,7 @@ public class Rituals : MonoBehaviour {
 
     public void RunePressed4()
     {
-       if(RitualInProgress) {
+       if(RitualInProgress&& Time.timeScale != 0) {
             if (RuneSequenceActive.Length > i && RuneSequenceActive[i] == 4)
             {
                 Panel.GetComponent<RuneDrop>().Drop(4);
@@ -185,6 +245,13 @@ public class Rituals : MonoBehaviour {
             }
             if (RuneSequenceActive.Length == i)
             {
+                for (int j = 0; j < 4; j++)
+                {
+                    Color tmp = Buttons[j].GetComponent<Image>().color;
+                    tmp.a = 0.4f;
+                    Buttons[j].GetComponent<Image>().color = tmp;
+                }
+
                 TimeText.SetActive(false);
                 RitualInProgress = false;
                 i = 0;
@@ -200,6 +267,12 @@ public class Rituals : MonoBehaviour {
         if (disaster == "Storm" && !RitualInProgress)
         {
             //i = 0;
+            for (int j = 0; j < 4; j++)
+            {
+                Color tmp = Buttons[j].GetComponent<Image>().color;
+                tmp.a = 1.0f;
+                Buttons[j].GetComponent<Image>().color = tmp;
+            }
             RitualInProgress = true;
             RuneSequenceActive = RuneSequenceA;
             SequenceTextChange();            
@@ -216,6 +289,12 @@ public class Rituals : MonoBehaviour {
         if (disaster == "Mosquitos" && !RitualInProgress)
         {
             //i = 0;
+            for (int j = 0; j < 4; j++)
+            {
+                Color tmp = Buttons[j].GetComponent<Image>().color;
+                tmp.a = 1.0f;
+                Buttons[j].GetComponent<Image>().color = tmp;
+            }
             RitualInProgress = true;
             RuneSequenceActive = RuneSequenceB;
             SequenceTextChange();
@@ -228,9 +307,15 @@ public class Rituals : MonoBehaviour {
 
     public void RunePressedC()
     {
-        if (disaster == "Flood" && !RitualInProgress)
+        if (disaster == "Earthquake" && !RitualInProgress)
         {
             //i = 0;
+            for (int j = 0; j < 4; j++)
+            {
+                Color tmp = Buttons[j].GetComponent<Image>().color;
+                tmp.a = 1.0f;
+                Buttons[j].GetComponent<Image>().color = tmp;
+            }
             RitualInProgress = true;
             RuneSequenceActive = RuneSequenceC;
             SequenceTextChange();
@@ -246,6 +331,12 @@ public class Rituals : MonoBehaviour {
         if (disaster == "Heat" && !RitualInProgress)
         {
             //i = 0;
+            for (int j = 0; j < 4; j++)
+            {
+                Color tmp = Buttons[j].GetComponent<Image>().color;
+                tmp.a = 1.0f;
+                Buttons[j].GetComponent<Image>().color = tmp;
+            }
             RitualInProgress = true;
             RuneSequenceActive = RuneSequenceD;
             SequenceTextChange();
@@ -273,6 +364,7 @@ public class Rituals : MonoBehaviour {
 
     public void SequenceExpand()
     {
+        KarmaModifier++;
         timeDiff = Time.time + 6;
         for (int j = 0; j < RuneSequenceActive.Length; j++)
         {
@@ -296,7 +388,7 @@ public class Rituals : MonoBehaviour {
 					
                 }
                 break;
-            case "Flood":
+            case "earthquake":
                 if (RuneSequenceC.Length < MaxSequenceLength)
                 {
                     RuneSequenceC = ExpandArray(RuneSequenceC);

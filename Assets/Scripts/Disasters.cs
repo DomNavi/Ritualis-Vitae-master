@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Disasters : MonoBehaviour {
-	public string[] Disasters_list = {"storm","mosquitos","flood","heat"};
+	public string[] Disasters_list = {"storm","mosquitos","earthquake","heat"};
 	public string Current_disaster;
 	public int Ritual_done = 0;
 
@@ -10,12 +10,21 @@ public class Disasters : MonoBehaviour {
     public GameObject Rain;
     public GameObject Daylight;
 
+    public GameObject MainCamera;
+    private bool shake;
+
+    public GameObject Fire1;
+    public GameObject Fire2;
+    public GameObject Fire3;
+    public GameObject Sun;
+    private bool hot = false;
+
     public GameObject MosquitosCloud;
     // Use this for initialization
 
     private bool storm = false;
     private bool mosquitos = false;
-    private bool flood = false;
+    private bool earthquake = false;
     private bool heat = false;
     private bool DisasterInProgress = false;
 
@@ -53,6 +62,29 @@ public class Disasters : MonoBehaviour {
             tempPos.x = Mathf.Lerp(tempPos.x, 7.0f, 1.0f * Time.deltaTime);
             MosquitosCloud.GetComponent<Transform>().localPosition = tempPos;
         }
+
+        if(shake)
+        {
+            MainCamera.GetComponent<Transform>().rotation = Quaternion.Slerp(MainCamera.GetComponent<Transform>().rotation, Quaternion.Euler(356.77f, Random.Range(-4f, 4f), Random.Range(-3.5f, 1f)), Time.deltaTime * 2.8f);
+        }
+        else
+        {
+            MainCamera.GetComponent<Transform>().rotation = Quaternion.Slerp(MainCamera.GetComponent<Transform>().rotation, Quaternion.Euler(356.77f, 0f, -1.72f), Time.deltaTime * 2.8f);
+        }
+
+        if(hot)
+        {
+            Color tmp = Sun.GetComponent<ParticleSystem>().startColor;
+            tmp.a = Mathf.Lerp(tmp.a, 1.0f, 2.0f * Time.deltaTime);
+            Sun.GetComponent<ParticleSystem>().startColor = tmp;
+        }
+
+        else
+        {
+            Color tmp = Sun.GetComponent<ParticleSystem>().startColor;
+            tmp.a = Mathf.Lerp(tmp.a, 7f/255f, 2.0f * Time.deltaTime);
+            Sun.GetComponent<ParticleSystem>().startColor = tmp;
+        }
     }
 
 	IEnumerator wait_for_disaster(){
@@ -64,8 +96,8 @@ public class Disasters : MonoBehaviour {
         DisasterInProgress = true;
         StormEnd();
         MosquitosEnd();
-        //FloodEnd();
-        //HeatEnd();
+        EarthquakeEnd();
+        HeatEnd();
         yield return new WaitForSeconds(1.5f);
         Current_disaster = Disasters_list[Random.Range(0,Disasters_list.Length)];
         //Current_disaster = Disasters_list[Random.Range(0,2)];
@@ -80,18 +112,19 @@ public class Disasters : MonoBehaviour {
                 MosquitosStart();
 				GetComponent<Rituals>().MosquitosAreComing ();
 				break;
-			case "flood":
+			case "earthquake":
 				//Debug.Log ("Water is rising!");
-                //FloodStart();
-                GetComponent<Rituals>().FloodIsComing ();
+                EarthquakeStart();
+                GetComponent<Rituals>().EarthquakeIsComing ();
 				break;
 			case "heat":
 				//Debug.Log ("Its getting hot!");
-                //HeatStart();
+                HeatStart();
                 GetComponent<Rituals>().HeatIsComing ();
 				break;
 		}
-		yield return new WaitForSeconds (6);
+		yield return new WaitForSeconds (5);
+        //change timediff also
 		if (Ritual_done == 0) {
 			End_game ();
             GetComponent<Rituals>().TimeText.SetActive(false);
@@ -129,7 +162,44 @@ public class Disasters : MonoBehaviour {
         mosquitos = false;
     }
 
-	void End_game()
+    void EarthquakeStart()
+    {
+        shake = true;
+    }
+
+    public void EarthquakeEnd()
+    {
+        shake = false;
+    }
+
+    void HeatStart()
+    {
+        hot = true;
+        StartCoroutine(LightUp());
+        Sun.GetComponent<ParticleSystem>().emissionRate = 50;
+        Sun.GetComponent<ParticleSystem>().startSpeed = 1.18f;
+
+    }
+
+    public void HeatEnd()
+    {
+        hot = false;
+        Fire1.SetActive(false);
+        Fire2.SetActive(false);
+        Fire3.SetActive(false);
+        Sun.GetComponent<ParticleSystem>().emissionRate = 25;
+        Sun.GetComponent<ParticleSystem>().startSpeed = 0.18f;
+    }
+
+    IEnumerator LightUp()
+    {
+        yield return new  WaitForSeconds(1);
+        Fire1.SetActive(true);
+        Fire2.SetActive(true);
+        Fire3.SetActive(true);
+    }
+
+    void End_game()
     {
 		Debug.Log ("Game ended");
         Time.timeScale = 0.0f;
