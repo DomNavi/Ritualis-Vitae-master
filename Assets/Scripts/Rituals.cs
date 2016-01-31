@@ -36,6 +36,8 @@ public class Rituals : MonoBehaviour {
     // Use this for initialization
     void Start() {
         KarmaModifier = 1;
+        Karma = 0;
+        karmaTimeDiff = Time.time;
         for (int j = 0; j < 2; j++)
         {
             RuneSequenceA[j] = Random.Range(1, 5);
@@ -50,7 +52,6 @@ public class Rituals : MonoBehaviour {
         TimeText.GetComponent<Text>().text = Mathf.CeilToInt(timeDiff - Time.time).ToString();
         if(Time.time >= karmaTimeDiff + 1.0f)
         {
-            Debug.Log(Karma);
             karmaTimeDiff++;
             Karma += KarmaModifier;
             KarmaText.GetComponent<Text>().text = "Karma " + Karma.ToString();
@@ -388,7 +389,7 @@ public class Rituals : MonoBehaviour {
 					
                 }
                 break;
-            case "earthquake":
+            case "Earthquake":
                 if (RuneSequenceC.Length < MaxSequenceLength)
                 {
                     RuneSequenceC = ExpandArray(RuneSequenceC);
