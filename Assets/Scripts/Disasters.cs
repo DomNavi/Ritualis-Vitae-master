@@ -123,7 +123,8 @@ public class Disasters : MonoBehaviour {
                 GetComponent<Rituals>().HeatIsComing ();
 				break;
 		}
-		yield return new WaitForSeconds (6);
+		yield return new WaitForSeconds (5);
+        //change timediff also
 		if (Ritual_done == 0) {
 			End_game ();
             GetComponent<Rituals>().TimeText.SetActive(false);
