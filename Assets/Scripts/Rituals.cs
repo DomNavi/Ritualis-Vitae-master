@@ -35,6 +35,7 @@ public class Rituals : MonoBehaviour {
     public GameObject SequenceInfoGrid;
     // Use this for initialization
     void Start() {
+        KarmaModifier = 1;
         for (int j = 0; j < 2; j++)
         {
             RuneSequenceA[j] = Random.Range(1, 5);
