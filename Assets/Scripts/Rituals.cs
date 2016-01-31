@@ -65,12 +65,12 @@ public class Rituals : MonoBehaviour {
         ResetRunes();
     }
 
-    public void FloodIsComing()
+    public void EarthquakeIsComing()
     {
         timeDiff = Time.time + 6;
         TimeText.SetActive(true);
-        disaster = "Flood";
-        Debug.Log("FloodSigns");
+        disaster = "Earthquake";
+        Debug.Log("EarthquakeSigns");
         GetComponent<TextFade>().FadeTo(false);
         GetComponent<TextFade>().DisInfo.GetComponent<Text>().text = disaster + " !";
         ResetRunes();
@@ -228,7 +228,7 @@ public class Rituals : MonoBehaviour {
 
     public void RunePressedC()
     {
-        if (disaster == "Flood" && !RitualInProgress)
+        if (disaster == "Earthquake" && !RitualInProgress)
         {
             //i = 0;
             RitualInProgress = true;
@@ -296,7 +296,7 @@ public class Rituals : MonoBehaviour {
 					
                 }
                 break;
-            case "Flood":
+            case "earthquake":
                 if (RuneSequenceC.Length < MaxSequenceLength)
                 {
                     RuneSequenceC = ExpandArray(RuneSequenceC);
