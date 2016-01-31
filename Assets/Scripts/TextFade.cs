@@ -18,13 +18,13 @@ public class TextFade : MonoBehaviour {
     {
         if (fade)
         {
-            Temp.a = Mathf.Lerp(Temp.a, 0.0f, 0.03f);
+            Temp.a = Mathf.Lerp(Temp.a, 0.0f, 8.5f * Time.deltaTime);
             //SequenceInfo.GetComponent<Text>().color = Temp;
             DisInfo.GetComponent<Text>().color = Temp;
         }
         else
         {
-            Temp.a = Mathf.Lerp(Temp.a, 1.0f, 0.2f);
+            Temp.a = Mathf.Lerp(Temp.a, 1.0f, 8.5f * Time.deltaTime);
             //SequenceInfo.GetComponent<Text>().color = Temp;
             DisInfo.GetComponent<Text>().color = Temp;            
         }

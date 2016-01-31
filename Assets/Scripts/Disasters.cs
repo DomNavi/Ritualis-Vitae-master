@@ -60,6 +60,7 @@ public class Disasters : MonoBehaviour {
 		StartCoroutine (start_disaster ());
 	}
 	IEnumerator start_disaster(){
+        GetComponent<TextFade>().FadeTo(true);
         DisasterInProgress = true;
         StormEnd();
         MosquitosEnd();
@@ -93,6 +94,7 @@ public class Disasters : MonoBehaviour {
 		yield return new WaitForSeconds (6);
 		if (Ritual_done == 0) {
 			End_game ();
+            GetComponent<Rituals>().TimeText.SetActive(false);
 		}
         Ritual_done--;
     }

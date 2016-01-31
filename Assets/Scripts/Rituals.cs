@@ -7,17 +7,19 @@ public class Rituals : MonoBehaviour {
     public GameObject SequenceInfo;
 
     public int MaxSequenceLength = 6;
-
+    public GameObject RitualHit;
     public int[] RuneSequenceA;
     public int[] RuneSequenceB;
     public int[] RuneSequenceC;
     public int[] RuneSequenceD;
     public int[] RuneSequenceActive;
+    public GameObject TimeText;
 
     public GameObject[] Runes;
 	public GameObject Panel;
     private string disaster;
     private int i = 0;
+    private float timeDiff = 6;
 
     public Sprite[] RunesIcons = new Sprite[4];
 
@@ -37,11 +39,13 @@ public class Rituals : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-
+        TimeText.GetComponent<Text>().text = (timeDiff - Time.time).ToString();
     }
 
     public void StormIsComing()
-    {       
+    {
+        timeDiff = Time.time + 6;
+        TimeText.SetActive(true);
         disaster = "Storm";
         Debug.Log("StormSigns");
         GetComponent<TextFade>().FadeTo(false);
@@ -54,6 +58,8 @@ public class Rituals : MonoBehaviour {
 
     public void MosquitosAreComing()
     {
+        timeDiff = Time.time + 6;
+        TimeText.SetActive(true);
         disaster = "Mosquitos";
         Debug.Log("MosquitosSigns");
         GetComponent<TextFade>().FadeTo(false);
@@ -66,6 +72,8 @@ public class Rituals : MonoBehaviour {
 
     public void FloodIsComing()
     {
+        timeDiff = Time.time + 6;
+        TimeText.SetActive(true);
         disaster = "Flood";
         Debug.Log("FloodSigns");
         GetComponent<TextFade>().FadeTo(false);
@@ -78,6 +86,8 @@ public class Rituals : MonoBehaviour {
 
     public void HeatIsComing()
     {
+        timeDiff = Time.time + 6;
+        TimeText.SetActive(true);
         disaster = "Heat";
         Debug.Log("HeatSigns");
         GetComponent<TextFade>().FadeTo(false);
@@ -97,6 +107,7 @@ public class Rituals : MonoBehaviour {
             {
                 Panel.GetComponent<RuneDrop>().Drop(1);
                 i++;
+                RitualHit.GetComponent<ParticleSystem>().enableEmission = true;
                 Debug.Log("Correct");
             }
             else
@@ -105,6 +116,7 @@ public class Rituals : MonoBehaviour {
             }
             if (RuneSequenceActive.Length == i)
             {
+                TimeText.SetActive(false);
                 RitualInProgress = false;
                 i = 0;
                 GetComponent<Disasters>().Ritual_done++;
@@ -130,6 +142,7 @@ public class Rituals : MonoBehaviour {
             }
             if (RuneSequenceActive.Length == i)
             {
+                TimeText.SetActive(false);
                 RitualInProgress = false;
                 i = 0;
                 GetComponent<Disasters>().Ritual_done++;
@@ -155,6 +168,7 @@ public class Rituals : MonoBehaviour {
             }
             if (RuneSequenceActive.Length == i)
             {
+                TimeText.SetActive(false);
                 RitualInProgress = false;
                 i = 0;
                 GetComponent<Disasters>().Ritual_done++;
@@ -179,6 +193,7 @@ public class Rituals : MonoBehaviour {
             }
             if (RuneSequenceActive.Length == i)
             {
+                TimeText.SetActive(false);
                 RitualInProgress = false;
                 i = 0;
                 GetComponent<Disasters>().Ritual_done++;
@@ -254,7 +269,7 @@ public class Rituals : MonoBehaviour {
         Color temp = GetComponent<TextFade>().SequenceInfo.GetComponent<Text>().color;
         temp.a = 1.0f;
         GetComponent<TextFade>().SequenceInfo.GetComponent<Text>().color = temp;
-        GetComponent<TextFade>().FadeTo(true);
+        //GetComponent<TextFade>().FadeTo(true);
         for (int j = 0; j < RuneSequenceActive.Length; j++)
         {
             SequenceInfoGrid.GetComponent<SequenceGrid>().SequenceElements[j].SetActive(true);
@@ -269,6 +284,7 @@ public class Rituals : MonoBehaviour {
 
     public void SequenceExpand()
     {
+        timeDiff = Time.time + 6;
         for (int j = 0; j < RuneSequenceActive.Length; j++)
         {
             SequenceInfoGrid.GetComponent<SequenceGrid>().SequenceElements[j].SetActive(false);
