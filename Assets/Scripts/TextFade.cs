@@ -11,7 +11,8 @@ public class TextFade : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        Temp = SequenceInfo.GetComponent<Text>().color;
+      //  Temp = SequenceInfo.GetComponent<Text>().color;
+        Temp = new Color (252f / 255f, 160f / 255f, 6f / 255f);
     }
 
     void Update()
